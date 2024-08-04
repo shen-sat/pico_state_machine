@@ -1,0 +1,14 @@
+function right_v2(parent)
+  local state = {
+  	start_x = parent.x,
+    update = function(self)
+      if parent.x < self.start_x + 5 then
+      	parent.x += 1
+      else
+      	parent.state = idle(parent)
+      end
+    end
+  }
+
+  return state
+end

@@ -1,8 +1,7 @@
 pico-8 cartridge // http://www.pico-8.com
 version 36
 __lua__
-function _init() 
-
+function _init()
   player = {
     x = 0,
     y = 0,
@@ -18,6 +17,8 @@ function _init()
   player.draw_state = draw_idle(player)
 
   current_time = 0
+  #include player_anims.lua
+  #include shared.lua
 end
 
 function right(parent)
@@ -125,8 +126,7 @@ function _update()
   if btnp(0) then
   elseif btnp(1) then
     player.move_state = right(player)
-    player.draw_state = flash(player)
-
+    player.draw_state = create_anim_state(player_anims['flash'])
   elseif btnp(2) then
   elseif btnp(3) then
   end

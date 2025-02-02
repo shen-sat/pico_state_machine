@@ -9,7 +9,7 @@ local flash_anim = {
 		  rectfill(player.x,player.y,player.x + 10,player.y + 10,7)
 		end
 	},
-	next_state = draw_idle(player),
+	next_state = player_draw_states.idle,
 	loop = true
 }
 

@@ -13,14 +13,14 @@ function _init()
     end
   }
 
+  current_time = 0
   player_draw_states = {}
+  #include shared.lua
+  #include player_draw_states/idle_draw_state.lua
+  #include player_draw_states/flash_draw_state.lua
 
   player.move_state = idle(player)
-  player.draw_state = draw_idle(player)
-
-  current_time = 0
-  #include shared.lua
-  #include player_draw_states/flash_draw_state.lua
+  set_draw_state(player_draw_states['idle'], player)
 end
 
 function right(parent)
@@ -74,16 +74,6 @@ function idle(parent)
   local state = {
     update = function(self)
       return
-    end
-  }
-
-  return state
-end
-
-function draw_idle(parent)
-  local state = {
-    draw = function(self)
-      rectfill(parent.x,parent.y,parent.x + 10,parent.y + 10,7)
     end
   }
 

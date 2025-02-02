@@ -1,7 +1,6 @@
-function create_anim_state(anim)
+function create_draw_state(anim)
 	local state = {
 	  speed = anim.speed,
-	  start_time = current_time,
 	  frames = function(self)
 	    return anim.frames
 	  end,
@@ -30,4 +29,9 @@ function create_anim_state(anim)
 	}
 
 	return state
+end
+
+function set_draw_state(state, parent)
+	state.start_time = current_time
+	parent.draw_state = state
 end

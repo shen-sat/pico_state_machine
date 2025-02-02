@@ -13,12 +13,14 @@ function _init()
     end
   }
 
+  player_draw_states = {}
+
   player.move_state = idle(player)
   player.draw_state = draw_idle(player)
 
   current_time = 0
-  #include player_anims.lua
   #include shared.lua
+  #include player_draw_states/flash_draw_state.lua
 end
 
 function right(parent)
@@ -126,7 +128,7 @@ function _update()
   if btnp(0) then
   elseif btnp(1) then
     player.move_state = right(player)
-    player.draw_state = create_anim_state(player_anims['flash'])
+    set_draw_state(player_draw_states['flash'], player)
   elseif btnp(2) then
   elseif btnp(3) then
   end

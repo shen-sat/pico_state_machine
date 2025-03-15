@@ -18,6 +18,7 @@ function _init()
   #include shared.lua
   #include player_draw_states/idle_draw_state.lua
   #include player_draw_states/flash_draw_state.lua
+  #include player_move_states/right_move_state.lua
 
   player.move_state = idle(player)
   set_draw_state(player_draw_states['idle'], player)
@@ -80,44 +81,10 @@ function idle(parent)
   return state
 end
 
-function flash(parent)
-  local state = {
-    speed = 20,
-    start_time = current_time,
-    frames = function(self)
-      return {
-        function()
-          rectfill(parent.x,parent.y,parent.x + 10,parent.y + 10,8)
-        end 
-      }
-    end,
-    get_index = function(self, is_prediction)
-      local movement_start_time = self.start_time
-      time_elapsed = current_time - movement_start_time
-      if is_prediction then time_elapsed += 1 end
-      -- using flr makes sure we alwways return an integer at regular intervals
-      -- Eg self.speed of 3 will return 1,1,1,2,2,2,3,3,3...
-      local i = flr(time_elapsed/self.speed) + 1
-
-      return i
-    end,
-    draw = function(self)
-      local i = self:get_index()
-      self.frames()[i]()
-      local next_i = self:get_index(true)
-      if next_i > #self.frames() then
-        parent.draw_state = draw_idle(parent)
-      end
-    end
-  }
-
-  return state
-end
-
 function _update()
   if btnp(0) then
   elseif btnp(1) then
-    player.move_state = right(player)
+    player.move_state = right_v3(player)
     set_draw_state(player_draw_states['flash'], player)
   elseif btnp(2) then
   elseif btnp(3) then

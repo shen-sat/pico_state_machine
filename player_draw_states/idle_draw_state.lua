@@ -6,7 +6,7 @@ local idle_anim = {
       rectfill(player.x,player.y,player.x + 10,player.y + 10,11)
     end,
   },
-  loop = true
+  loop = true,
 }
 
 player_draw_states.idle = create_draw_state(idle_anim)

@@ -1,4 +1,5 @@
 function create_draw_state(anim)
+	-- todo: add validations for anim attributes eg .speed, .next_state (if not looping), etc
 	local state = {
 	  speed = anim.speed,
 	  frames = function(self)
@@ -22,7 +23,7 @@ function create_draw_state(anim)
 	  		self.frames()[i]()
 	  		local next_i = self:get_index(true)
 	  		if next_i > #self.frames() then
-	  		  anim.parent.draw_state = anim.next_state
+	  		  set_draw_state(anim.next_state, anim.parent)
 	  		end
 	  	end
 	  end

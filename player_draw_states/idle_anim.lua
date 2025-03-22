@@ -1,4 +1,5 @@
 local idle_anim = {
+  id = 'idle_anim',
   parent = player,
   speed = 1,
   frames = {
@@ -8,5 +9,3 @@ local idle_anim = {
   },
   loop = true,
 }
-
-player_draw_states.idle = create_draw_state(idle_anim)

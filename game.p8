@@ -14,13 +14,18 @@ function _init()
   }
 
   current_time = 0
-  player_draw_states = {}
   #include shared.lua
-  #include player_draw_states/idle_draw_state.lua
-  #include player_draw_states/flash_draw_state.lua
   #include player_move_states/right_move_state.lua
 
+  -- initialize draw states
+  #include player_draw_states/create_draw_state.lua
+  #include player_draw_states/flash_anim.lua
+  #include player_draw_states/idle_anim.lua
+  #include player_draw_states/create_player_draw_states.lua
+  player_draw_states = create_player_draw_states()
+
   player.move_state = idle(player)
+  
   set_draw_state(player_draw_states['idle'], player)
 end
 

@@ -27,10 +27,10 @@ function create_frame_move_state(move)
 		  end
 
 		  if point.x then
-		    self.parent.x = point.x
+		    self.parent.x += point.x
 		  end
 		  if point.y then
-		    self.parent.y = point.y
+		    self.parent.y += point.y
 		  end
 
 		  if not self.loop then

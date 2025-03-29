@@ -15,7 +15,6 @@ function _init()
 
   current_time = 0
   #include shared.lua
-  #include player_move_states/right_move_state.lua
 
   -- initialize draw states
   #include player_draw_states/create_draw_state.lua
@@ -24,7 +23,14 @@ function _init()
   #include player_draw_states/create_player_draw_states.lua
   player_draw_states = create_player_draw_states()
 
-  player.move_state = idle(player)
+  -- initialize move states
+  #include player_move_states/create_nonframe_move_state.lua
+  #include player_move_states/idle_move.lua
+  #include player_move_states/right_move.lua
+  #include player_move_states/create_player_move_states.lua
+  player_move_states = create_player_move_states()
+
+  player.move_state = player_move_states.idle
   
   set_draw_state(player_draw_states['idle'], player)
 end
@@ -89,7 +95,7 @@ end
 function _update()
   if btnp(0) then
   elseif btnp(1) then
-    player.move_state = right_v3(player)
+    player.move_state = player_move_states.right
     set_draw_state(player_draw_states['flash'], player)
   elseif btnp(2) then
   elseif btnp(3) then

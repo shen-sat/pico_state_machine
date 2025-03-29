@@ -46,3 +46,8 @@ function set_draw_state(state, parent)
 	state.start_time = current_time
 	parent.draw_state = state
 end
+
+function set_move_state(state, parent)
+	state.start_time = current_time
+	parent.move_state = state
+end

@@ -1,6 +1,8 @@
 function create_draw_state(anim)
 	validate_anim(anim)
+
 	local state = {
+		id = anim.id,
 		start_time = 0,
 	  parent = anim.parent,
 	  speed = anim.speed,

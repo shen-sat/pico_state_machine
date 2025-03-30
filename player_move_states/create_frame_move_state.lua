@@ -1,6 +1,7 @@
 function create_frame_move_state(move)
 	validate_frame_move(move)
 	local state = {
+		id = move.id,
 		start_time = 0,
 		parent = player,
 		speed = move.speed,

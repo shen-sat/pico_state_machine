@@ -4,14 +4,14 @@ alt_right_move = {
   speed = 3,
   frames = {
     {x = 6},
-    {x = -6},
+    {x = 0},
     {x = 4},
-    {x = -4},
+    {x = 0},
     {x = 1},
-    {x = -1},
+    {x = 0},
   },
-  loop = false,
-  next_state = function()
-    return player_move_states.idle
+  loop = true,
+  next = function()
+    player:set_move_state('idle')
   end
 }

@@ -1,11 +1,12 @@
 function create_frame_move_state(move)
 	validate_frame_move(move)
 	local state = {
+		start_time = 0,
 		parent = player,
 		speed = move.speed,
 		frames = move.frames,
 		loop = move.loop,
-		next_state = move.next_state,
+		next = move.next,
 		get_index = function(self, is_prediction)
 		  local start_time = self.start_time
 		  time_elapsed = current_time - start_time
@@ -27,16 +28,16 @@ function create_frame_move_state(move)
 		  end
 
 		  if point.x then
-		    self.parent.x += point.x
+		    self.parent.x = point.x
 		  end
 		  if point.y then
-		    self.parent.y += point.y
+		    self.parent.y = point.y
 		  end
 
 		  if not self.loop then
 		    local next_i = self:get_index(true)
 		    if next_i > #self.frames then
-		      set_move_state(self.next_state(), self.parent)
+		      self.next()
 		    end
 		  end
 		end
@@ -54,6 +55,6 @@ function validate_frame_move(move)
 	assert(#move.frames > 0, "less than 1 frame in "..id)
 	assert(not(move.loop == nil), "missing 'loop' in "..id)
 	if not move.loop then
-		assert(type(move.next_state) == "function", "'next_state' must be a function in "..id)
+		assert(type(move.next) == "function", "'next' must be a function in "..id)
 	end
 end

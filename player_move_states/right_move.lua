@@ -2,8 +2,8 @@ local right_move = {
   id = 'right_move',
   parent = player,
   timer = 0,
-  next_state = function()
-    return player_move_states.idle
+  next = function()
+    player:set_move_state('idle')
   end,
   is_end = function(self)
     return (self.timer >= 1)

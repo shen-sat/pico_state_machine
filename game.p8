@@ -6,10 +6,26 @@ function _init()
     x = 0,
     y = 0,
     update = function(self)
-      self.move_state:update()
+      local state = player_move_states[self.move_state]
+      state:update()
+      -- self.move_state:update()
     end,
     draw = function(self)
-      self.draw_state:draw()
+      local state = player_draw_states[self.draw_state]
+      state:draw()
+      -- self.draw_state:draw()
+    end,
+    set_move_state = function(self,state_name)
+      local state = player_move_states[state_name]
+      assert(state, "could not find move state for state_name "..state_name)
+      state.start_time = current_time
+      self.move_state = state_name
+    end,
+    set_draw_state = function(self,state_name)
+      local state = player_draw_states[state_name]
+      assert(state, "could not find draw state for state_name "..state_name)
+      state.start_time = current_time
+      self.draw_state = state_name
     end
   }
 
@@ -32,16 +48,19 @@ function _init()
   #include player_move_states/create_player_move_states.lua
   player_move_states = create_player_move_states()
 
-  player.move_state = player_move_states.idle
+  player:set_move_state('idle')
+  player:set_draw_state('idle')
   
-  set_draw_state(player_draw_states['idle'], player)
+  -- set_draw_state(player_draw_states['idle'], player)
 end
 
 function _update()
   if btnp(0) then
   elseif btnp(1) then
-    set_move_state(player_move_states.right, player)
-    set_draw_state(player_draw_states['flash'], player)
+    player:set_move_state('right')
+    player:set_draw_state('flash')
+    -- set_move_state(player_move_states.right, player)
+    -- set_draw_state(player_draw_states['flash'], player)
   elseif btnp(2) then
   elseif btnp(3) then
   end

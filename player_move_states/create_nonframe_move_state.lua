@@ -5,7 +5,7 @@ function create_nonframe_move_state(move)
 	  self:step()
 	  if self:is_end() then
 	    self:reset()
-	    self.parent.move_state = self:next_state()
+	    self.next()
 	  else
 	    self:move_parent()
 	  end
@@ -20,6 +20,6 @@ function validate_move(move)
 	assert(type(move.is_end) == "function", "'is_end' must be a function in "..id)
 	assert(type(move.reset) == "function", "'reset' must be a function in "..id)
 	assert(move.parent, "missing 'parent' in "..id)
-	assert(move.next_state, "missing 'parent' in "..id)
+	assert(type(move.next) == "function", "'next' must be a function in "..id)
 	assert(type(move.move_parent) == "function", "'move_parent' must be a function in "..id)
 end

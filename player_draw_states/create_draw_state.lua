@@ -1,10 +1,12 @@
 function create_draw_state(anim)
 	validate_anim(anim)
 	local state = {
+		start_time = 0,
+	  parent = anim.parent,
 	  speed = anim.speed,
-	  frames = function(self)
-	    return anim.frames
-	  end,
+	  loop = anim.loop,
+	  frames = anim.frames,
+	  next = anim.next,
 	  get_index = function(self, is_prediction)
 	    local movement_start_time = self.start_time
 	    time_elapsed = current_time - movement_start_time
@@ -17,13 +19,13 @@ function create_draw_state(anim)
 	  end,
 	  draw = function(self)
 	  	local i = self:get_index()
-	  	if anim.loop then
-	  		self.frames()[(i % #anim.frames) + 1]()
+	  	if self.loop then
+	  		self.frames[(i % #self.frames) + 1]()
 	  	else
-	  		self.frames()[i]()
+	  		self.frames[i]()
 	  		local next_i = self:get_index(true)
-	  		if next_i > #self.frames() then
-	  			set_draw_state(anim.next_state(), anim.parent)
+	  		if next_i > #self.frames then
+	  			self.next()
 	  		end
 	  	end
 	  end
@@ -40,7 +42,7 @@ function validate_anim(anim)
 	assert(#anim.frames > 0, "less than 1 frame in "..id)
 	assert(not(anim.loop == nil), "missing 'loop' in "..id)
 	if not anim.loop then
-		assert(type(anim.next_state) == "function", "'next_state' must be a function in "..id)
+		assert(type(anim.next) == "function", "'next' must be a function in "..id)
 	end
 	assert(anim.parent, "missing 'parent' in "..id)
 end

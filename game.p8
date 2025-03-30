@@ -7,6 +7,15 @@ function _init()
   #include shared/draw.lua
   #include shared/move.lua
 
+  -------------------------------------- animal
+  #include animal/create_animal.lua
+  animal = create_animal()
+  -- initialize draw states
+  #include animal/anims/animal_idle_anim.lua
+  #include animal/create_animal_draw_states.lua
+  animal.draw_states = create_animal_draw_states()
+  animal:set_draw_state('idle')
+
   --player
   #include player/create_player.lua
   player = create_player()
@@ -49,4 +58,5 @@ end
 function _draw()
   cls()
   player:draw()
+  animal:draw()
 end

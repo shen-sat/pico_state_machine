@@ -1,3 +1,21 @@
+function set_draw_state(state, parent)
+	state.start_time = current_time
+	parent.draw_state = state
+end
+
+function validate_anim(anim)
+	local id = anim.id
+	assert(id, "an anim is missing an id")
+	assert(anim.speed, "missing 'speed' in "..id)
+	assert(anim.frames, "missing 'frames' in "..id)
+	assert(#anim.frames > 0, "less than 1 frame in "..id)
+	assert(not(anim.loop == nil), "missing 'loop' in "..id)
+	if not anim.loop then
+		assert(type(anim.next) == "function", "'next' must be a function in "..id)
+	end
+	assert(anim.parent, "missing 'parent' in "..id)
+end
+
 function create_draw_state(anim)
 	validate_anim(anim)
 

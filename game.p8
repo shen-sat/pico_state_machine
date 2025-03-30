@@ -4,21 +4,19 @@ __lua__
 function _init()
   current_time = 0
   -- shared
-  #include shared.lua
+  #include shared/draw.lua
+  #include shared/move.lua
 
   --player
   #include player/create_player.lua
   player = create_player()
 
   -- initialize draw states
-  #include player_draw_states/create_draw_state.lua
   #include player_draw_states/flash_anim.lua
   #include player_draw_states/idle_anim.lua
   #include player_draw_states/create_player_draw_states.lua
 
   -- initialize move states
-  #include player_move_states/create_nonframe_move_state.lua
-  #include player_move_states/create_frame_move_state.lua
   #include player_move_states/idle_move.lua
   #include player_move_states/right_move.lua
   #include player_move_states/alt_right_move.lua

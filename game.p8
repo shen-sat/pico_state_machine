@@ -2,35 +2,13 @@ pico-8 cartridge // http://www.pico-8.com
 version 36
 __lua__
 function _init()
-  player = {
-    x = 0,
-    y = 0,
-    update = function(self)
-      local state = player_move_states[self.move_state]
-      state:update()
-      -- self.move_state:update()
-    end,
-    draw = function(self)
-      local state = player_draw_states[self.draw_state]
-      state:draw()
-      -- self.draw_state:draw()
-    end,
-    set_move_state = function(self,state_name)
-      local state = player_move_states[state_name]
-      assert(state, "could not find move state for state_name "..state_name)
-      state.start_time = current_time
-      self.move_state = state_name
-    end,
-    set_draw_state = function(self,state_name)
-      local state = player_draw_states[state_name]
-      assert(state, "could not find draw state for state_name "..state_name)
-      state.start_time = current_time
-      self.draw_state = state_name
-    end
-  }
-
   current_time = 0
+  -- shared
   #include shared.lua
+
+  --player
+  #include player/create_player.lua
+  player = create_player()
 
   -- initialize draw states
   #include player_draw_states/create_draw_state.lua

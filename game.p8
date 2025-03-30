@@ -15,7 +15,6 @@ function _init()
   #include player_draw_states/flash_anim.lua
   #include player_draw_states/idle_anim.lua
   #include player_draw_states/create_player_draw_states.lua
-  player_draw_states = create_player_draw_states()
 
   -- initialize move states
   #include player_move_states/create_nonframe_move_state.lua
@@ -24,12 +23,12 @@ function _init()
   #include player_move_states/right_move.lua
   #include player_move_states/alt_right_move.lua
   #include player_move_states/create_player_move_states.lua
-  player_move_states = create_player_move_states()
+
+  player.draw_states = create_player_draw_states()
+  player.move_states = create_player_move_states()
 
   player:set_move_state('idle')
   player:set_draw_state('idle')
-  
-  -- set_draw_state(player_draw_states['idle'], player)
 end
 
 function _update()

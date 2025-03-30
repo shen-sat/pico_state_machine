@@ -51,3 +51,40 @@ function set_move_state(state, parent)
 	state.start_time = current_time
 	parent.move_state = state
 end
+
+function validate_anim(anim)
+	local id = anim.id
+	assert(id, "an anim is missing an id")
+	assert(anim.speed, "missing 'speed' in "..id)
+	assert(anim.frames, "missing 'frames' in "..id)
+	assert(#anim.frames > 0, "less than 1 frame in "..id)
+	assert(not(anim.loop == nil), "missing 'loop' in "..id)
+	if not anim.loop then
+		assert(type(anim.next) == "function", "'next' must be a function in "..id)
+	end
+	assert(anim.parent, "missing 'parent' in "..id)
+end
+
+function validate_nonframe_move(move)
+	local id = move.id
+	assert(id, "a move is missing an id")
+	assert(type(move.step) == "function", "'step' must be a function in "..id)
+	assert(type(move.is_end) == "function", "'is_end' must be a function in "..id)
+	assert(type(move.reset) == "function", "'reset' must be a function in "..id)
+	assert(move.parent, "missing 'parent' in "..id)
+	assert(type(move.next) == "function", "'next' must be a function in "..id)
+	assert(type(move.move_parent) == "function", "'move_parent' must be a function in "..id)
+end
+
+function validate_frame_move(move)
+	local id = move.id
+	assert(id, "a move is missing an id")
+	assert(move.parent, "missing 'parent' in "..id)
+	assert(move.speed, "missing 'speed' in "..id)
+	assert(move.frames, "missing 'frames' in "..id)
+	assert(#move.frames > 0, "less than 1 frame in "..id)
+	assert(not(move.loop == nil), "missing 'loop' in "..id)
+	if not move.loop then
+		assert(type(move.next) == "function", "'next' must be a function in "..id)
+	end
+end

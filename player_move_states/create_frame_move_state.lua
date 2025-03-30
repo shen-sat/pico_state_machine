@@ -1,5 +1,6 @@
 function create_frame_move_state(move)
 	validate_frame_move(move)
+
 	local state = {
 		id = move.id,
 		start_time = 0,
@@ -45,17 +46,4 @@ function create_frame_move_state(move)
 	}
 
 	return state
-end
-
-function validate_frame_move(move)
-	local id = move.id
-	assert(id, "a move is missing an id")
-	assert(move.parent, "missing 'parent' in "..id)
-	assert(move.speed, "missing 'speed' in "..id)
-	assert(move.frames, "missing 'frames' in "..id)
-	assert(#move.frames > 0, "less than 1 frame in "..id)
-	assert(not(move.loop == nil), "missing 'loop' in "..id)
-	if not move.loop then
-		assert(type(move.next) == "function", "'next' must be a function in "..id)
-	end
 end

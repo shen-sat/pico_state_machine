@@ -17,10 +17,12 @@ end
 function validate_frame_move(move)
 	local id = move.id
 	assert(id, "a move is missing an id")
+	assert(move.start_x, "missing 'start_x' in "..id)
+	assert(move.start_y, "missing 'start_y' in "..id)
 	assert(move.parent, "missing 'parent' in "..id)
 	assert(move.speed, "missing 'speed' in "..id)
-	assert(move.frames, "missing 'frames' in "..id)
-	assert(#move.frames > 0, "less than 1 frame in "..id)
+	assert(type(move.frames) == "function", "'frames' must be a function in "..id)
+	assert(#move:frames() > 0, "less than 1 frame in "..id)
 	assert(not(move.loop == nil), "missing 'loop' in "..id)
 	if not move.loop then
 		assert(type(move.next) == "function", "'next' must be a function in "..id)
@@ -33,11 +35,13 @@ function create_frame_move_state(move)
 	local state = {
 		id = move.id,
 		start_time = 0,
-		parent = player,
+		parent = move.parent,
 		speed = move.speed,
 		frames = move.frames,
 		loop = move.loop,
 		next = move.next,
+		start_x = move.start_x,
+		start_y = move.start_y,
 		get_index = function(self, is_prediction)
 		  local start_time = self.start_time
 		  time_elapsed = current_time - start_time
@@ -53,21 +57,14 @@ function create_frame_move_state(move)
 
 		  local point
 		  if self.loop then
-		    point = self.frames[(i % #self.frames) + 1]
+		    point = self:frames()[(i % #self:frames()) + 1]()
 		  else
-		    point = self.frames[i]
-		  end
-
-		  if point.x then
-		    self.parent.x = point.x
-		  end
-		  if point.y then
-		    self.parent.y = point.y
+		    point = self:frames()[i]()
 		  end
 
 		  if not self.loop then
 		    local next_i = self:get_index(true)
-		    if next_i > #self.frames then
+		    if next_i > #self:frames() then
 		      self.next()
 		    end
 		  end

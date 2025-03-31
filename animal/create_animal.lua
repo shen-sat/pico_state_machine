@@ -11,6 +11,8 @@ function create_animal()
     set_move_state = function(self,state_name)
       local state = self.move_states[state_name]
       assert(state, "animal: could not find move state for state_name "..state_name)
+      state.start_x = self.x
+      state.start_y = self.y
       state.start_time = current_time
       self.move_state = state
     end,

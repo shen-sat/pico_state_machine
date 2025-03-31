@@ -34,9 +34,5 @@ animal_bounce_move = {
     
     return frames
   end,
-  next = function()
-    animal:set_move_state('idle')
-  end,
-  loop = false
-
+  loop = true
 }

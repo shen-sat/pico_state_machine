@@ -12,6 +12,7 @@ function _init()
   animal = create_animal()
   -- initialize draw states
   #include animal/anims/animal_idle_anim.lua
+  #include animal/anims/animal_flash_anim.lua
   #include animal/create_animal_draw_states.lua
   animal.draw_states = create_animal_draw_states()
   animal:set_draw_state('idle')
@@ -53,6 +54,7 @@ function _update()
     -- set_draw_state(player_draw_states['flash'], player)
   elseif btnp(2) then
     animal:set_move_state('bounce')
+    animal:set_draw_state('flash')
   elseif btnp(3) then
   end
 

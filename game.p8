@@ -14,6 +14,7 @@ function _init()
   #include animal/anims/animal_idle_anim.lua
   #include animal/anims/animal_flash_anim.lua
   #include animal/anims/animal_change_anim.lua
+  #include animal/anims/animal_pink_anim.lua
   #include animal/create_animal_draw_states.lua
   animal.draw_states = create_animal_draw_states()
   animal:set_draw_state('idle')
@@ -21,6 +22,7 @@ function _init()
   #include animal/moves/animal_idle_move.lua
   #include animal/moves/animal_bounce_move.lua
   #include animal/moves/animal_down_move.lua
+  #include animal/moves/animal_right_move.lua
   #include animal/create_animal_move_states.lua
   animal.move_states = create_animal_move_states()
   animal:set_move_state('idle')
@@ -50,6 +52,7 @@ end
 function _update()
   if btnp(0) then
   elseif btnp(1) then
+    animal:set_move_state('right')
   elseif btnp(2) then
     animal:set_move_state('bounce')
     animal:set_draw_state('flash')

@@ -1,0 +1,54 @@
+YOU ARE CURRENTLY THROWING VALIDATION ERROR: THIS IS FIX:
+- left
+-- move: once horizontal bounce anim (see below) has finished, should move 10px up and then stop
+-- draw: non-looping. is based on flag on animal (so set that first):
+-----if is_left is true, bounce to the left
+-----if is_left is false, bounce to the right
+The importamt thing here, is you will have tp change frames on anims to functions. the function will decide what the frames will be. In this case, a number will either be -ve or +ve based on the is_left flag
+
+
+four directions
+ initialise as green square in middle of screen
+
+- up
+-- move: should bounce (looping) -- DONE
+-- draw: should flash white and red (looping) -- DONE
+
+- down
+-- move: should slowly move down pixel by pixel for 10 pixels and stop
+-- draw: should alternate between circle and square and then stop (doesnt have to stop exactly when movement stops)
+
+- right
+-- move: should slowly move right pixel by pixel for 10 pixels, then bounce (looping)
+-- draw: once bouncing, should be a pink color
+
+
+
+
+
+
+deal card:
+- card moves down
+- then card moves right
+- then once card reaches position: flip
+
+select card:
+- selected card plays animation
+
+confirm card:
+- card moves
+- once card finishes moving, play animation (NOTE: for small movements in animation, anim can take care of)
+
+cursor:
+- only idle if all other objects are idle - but how do we know all other objects are idle (what attribute to check?)
+
+
+
+- move_state = idle
+- draw_state = idle
+
+
+
+
+
+
